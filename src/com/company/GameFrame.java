@@ -4,15 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.channels.InterruptedByTimeoutException;
 
-public class GameFrame extends JFrame implements ActionListener  {
+public class GameFrame extends JFrame implements ActionListener {
     private JMenuBar mb;
     private JMenu menu;
     private JMenuItem quit, pause, scores;
 
     public GameFrame() throws HeadlessException {
         this.setTitle("Snake");
-        //menuBar();
+        menuBar();
 
         this.add(new GamePanel());
 
@@ -23,39 +24,54 @@ public class GameFrame extends JFrame implements ActionListener  {
         this.setLocationRelativeTo(null);
 
 
+
     }
 
     private void menuBar() {
         mb = new JMenuBar();//menu Bar
         menu = new JMenu("menu");//create a menu
-        quit = new JMenuItem("Pause");
-        pause = new JMenuItem("Scores");
-        scores = new JMenuItem("Quit");
+        quit = new JMenuItem("Quit");
+        pause = new JMenuItem("Pause");
+        scores = new JMenuItem("Scores");
         menu.add(quit);
         menu.add(pause);
         menu.add(scores);
         mb.add(menu);
         this.setJMenuBar(mb);
+        setAction();
+
 
     }
 
-    private void setAction(){
+    private void setAction() {
         scores.addActionListener(this);
         pause.addActionListener(this);
-        quit .addActionListener(this);
+        quit.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == scores)
-        {
+
+        if (e.getSource() == scores) {
+            //todo link up score sheet display when this menu tab is pressed to display all time scores
+
+        } else if (e.getSource() == pause) {
+            pause.setText("Play");
+
+            try {
+                Thread.sleep(1000);
+                //todo sort out sleep time
 
 
-        }else if(e.getSource() ==pause)
-        {
+            } catch (InterruptedException ex) {
+                JOptionPane.showMessageDialog(null, "Something went wrong",
+                        "Error! ", JOptionPane.ERROR_MESSAGE
 
-        } else if (e.getSource() ==quit)
-        {
+                );
+                System.out.println(ex.getMessage());
+            }
+
+        } else if (e.getSource() == quit) {
             System.exit(0);
         }
 

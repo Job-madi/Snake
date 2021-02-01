@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 public class GamePanel extends JPanel implements ActionListener {
     static final int SCREEN_WIDTH = 600;
@@ -14,10 +15,11 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
     static final int DELAY = 75;
+    static String fullName;
     final int x[] = new int[GAME_UNITS];
     final int y[] = new int[GAME_UNITS];
     int bodyParts = 6;
-    int applesEaten;
+    static int score;
     int applex;
     int appleY;
     char direction = 'R';
@@ -36,6 +38,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
 
+
     public void startGame() {
         newApple();
         running = true;
@@ -51,9 +54,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void draw(Graphics g) {
 
-        if (running)
-        {
-                //Down below is the grid lines
+        if (running) {
+            //Down below is the grid lines
            /*for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; ++i)
             {
                 g.drawLine(i * UNIT_SIZE, 0, i * UNIT_SIZE, SCREEN_HEIGHT);
@@ -70,17 +72,16 @@ public class GamePanel extends JPanel implements ActionListener {
                 } else {
                     g.setColor(new Color(45, 180, 0));
                     //line below is for the snake to have multiple colors
-                     g.setColor(new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));
+                    g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 }
             }
             g.setColor(Color.red);
-            g.setFont(new Font("Ink Free", Font.BOLD,40));
+            g.setFont(new Font("Ink Free", Font.BOLD, 40));
             FontMetrics metrics = getFontMetrics(g.getFont());
-            g.drawString("SCORE: "+ applesEaten,(SCREEN_WIDTH - metrics.stringWidth("SCORE: "+ applesEaten))/2,g.getFont().getSize());
+            g.drawString("SCORE: " + score, (SCREEN_WIDTH - metrics.stringWidth("SCORE: " + score)) / 2, g.getFont().getSize());
 
-        }
-        else{
+        } else {
             gameOver(g);
         }
     }
@@ -116,7 +117,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void checkApple() {
         if ((x[0] == applex) && (y[0] == appleY)) {
             bodyParts++;
-            applesEaten++;
+            score++;
             newApple();
         }
 
@@ -153,20 +154,20 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void gameOver(Graphics g)
-    {
+    public void gameOver(Graphics g) {
         //score
         g.setColor(Color.red);
-        g.setFont(new Font("Ink Free", Font.BOLD,40));
+        g.setFont(new Font("Ink Free", Font.BOLD, 40));
         FontMetrics metrics1 = getFontMetrics(g.getFont());
-        g.drawString("SCORE: "+ applesEaten,(SCREEN_WIDTH - metrics1.stringWidth("SCORE: "+ applesEaten))/2,g.getFont().getSize());
+        g.drawString("SCORE: " + score, (SCREEN_WIDTH - metrics1.stringWidth("SCORE: " + score)) / 2, g.getFont().getSize());
 
 
         //gameOverTExt
         g.setColor(Color.red);
-        g.setFont(new Font("Ink Free", Font.BOLD,75));
+        g.setFont(new Font("Ink Free", Font.BOLD, 75));
         FontMetrics metrics2 = getFontMetrics(g.getFont());
-        g.drawString("Game Over",(SCREEN_WIDTH - metrics2.stringWidth("Game over"))/2,SCREEN_HEIGHT/2);
+        g.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game over")) / 2, SCREEN_HEIGHT / 2);
+        fullName = JOptionPane.showInputDialog(null, "What is your name and surname");
     }
 
 
@@ -210,6 +211,6 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
     }
-
+//Todo Add background image and change a bit of the UI
 
 }
