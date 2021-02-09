@@ -59,7 +59,7 @@ public class GameFrame extends JFrame implements ActionListener {
             pause.setText("Play");
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10);
                 //todo sort out sleep time
 
 

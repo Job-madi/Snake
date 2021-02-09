@@ -161,13 +161,18 @@ public class GamePanel extends JPanel implements ActionListener {
         FontMetrics metrics1 = getFontMetrics(g.getFont());
         g.drawString("SCORE: " + score, (SCREEN_WIDTH - metrics1.stringWidth("SCORE: " + score)) / 2, g.getFont().getSize());
 
-
+        setVisible(false);
+        fullName = JOptionPane.showInputDialog(null, "What is your name and surname");
+        new Scores().startScores(); //starting method to save score txt file
+        //Todo need to fix the panel after saving scores as joption is stuck on it
+        //setVisible(true);
         //gameOverTExt
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free", Font.BOLD, 75));
         FontMetrics metrics2 = getFontMetrics(g.getFont());
         g.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game over")) / 2, SCREEN_HEIGHT / 2);
-        fullName = JOptionPane.showInputDialog(null, "What is your name and surname");
+
+      //  new Scores().startScores(); //starting method to save score txt file
     }
 
 

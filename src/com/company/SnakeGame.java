@@ -9,4 +9,3 @@ public class SnakeGame {
 
     }
 }
-//hell this is job
